@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'NetflixSans';
+    src: url('fonts/NetflixSans-Bold.otf') format('otf'),
+        url('font/NetflixSans-Light.otf') format('otf'),
+        url('font/NetflixSans-Medium.otf') format('otf'),
+        url('font/NetflixSans-Regular.otf') format('otf'),
+}
+
+body {
+    font-family: 'NexflixSans', sans-serif;
+}
