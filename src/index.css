@@ -8,6 +8,10 @@
         url('font/NetflixSans-Regular.otf') format('otf'),
 }
 
+*{
+    box-sizing: border-box;
+}
 body {
-    font-family: 'NexflixSans', sans-serif;
+    font-family: 'NexflixSans';
+    font-size: 1.4rem;
 }

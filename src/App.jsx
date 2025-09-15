@@ -1,11 +1,13 @@
-function App() {
- 
+import Header from "./components/Header";
+import FeatureMovies from "./components/FeatureMovies";
 
+function App() {
   return (
-    <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  )
+    <div>
+      <Header />
+      <FeatureMovies />
+    </div>
+  );
 }
 
-export default App
+export default App;
