@@ -12,10 +12,10 @@ const Header = () => {
             className="w-30"
           />
           <a href="#!" className="">
-            Phim
+            Movies
           </a>
           <a className="inline-block w-full" href="#!">
-            Truyen hinh
+            TV Shows
           </a>
         </div>
         <div>

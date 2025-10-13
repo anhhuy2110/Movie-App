@@ -28,18 +28,35 @@ const FeatureMovies = () => {
 
   // console.log(movie);
 
+  useEffect(() => {
+    if (!movie || movie.length === 0) return;
+    const ids = movie.map((m) => m.id);
+    const intervalId = setInterval(() => {
+      setMovieActive((prevId) => {
+        const currentIndex = ids.indexOf(prevId);
+        const nextIndex =
+          currentIndex === -1 ? 0 : (currentIndex + 1) % ids.length;
+        return ids[nextIndex];
+      });
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [movie]);
 
   return (
     <div className="movie-container relative">
-      {
-        movie.filter((movie)=> {
-          if(movie.id === movieActive)
-            return movie;
-        }).map(movie => 
-          <Movie key={movie.id} data={movie} active={movieActive}/>
-        )
-      }
-		  <PaginateIndicator movie={movie} movieActive={movieActive} setMovieActive={setMovieActive}/>
+      {movie
+        .filter((movie) => {
+          if (movie.id === movieActive) return movie;
+        })
+        .map((movie) => (
+          <Movie key={movie.id} data={movie} active={movieActive} />
+        ))}
+      <PaginateIndicator
+        movie={movie}
+        movieActive={movieActive}
+        setMovieActive={setMovieActive}
+      />
     </div>
   );
 };
