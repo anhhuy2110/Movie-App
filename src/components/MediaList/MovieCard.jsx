@@ -7,7 +7,7 @@ const MovieCard = ({title,releaseDate,backdropPath,point,type}) => {
     <div className="border border-slate-800 rounded-lg">
       {
         type === "tv" && (
-          <p className="absolute right-1 top-1 bg-black text-white p-1 text-sm rounded shadow-md">TV Show</p>
+          <p className="absolute bg-black text-white p-1 text-sm rounded shadow-md">TV Show</p>
         )
       }
       <img

@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 
+const TAB = [
+  {
+    id: "all",
+    name: "All",
+  },
+  {
+    id: "movie",
+    name: "Movie",
+  },
+  {
+    id: "tv",
+    name: "TV",
+  },
+];
+
 const MediaList = () => {
   const [mediaList, setMediaList] = useState([]);
+  const [activeTabId, setActiveTabId] = useState("all");
 
-  const url = "https://api.themoviedb.org/3/trending/all/day?language=en-US";
+  const url = `https://api.themoviedb.org/3/trending/${activeTabId}/day?language=en-US`;
 
   useEffect(() => {
     fetch(url, {
@@ -20,30 +36,30 @@ const MediaList = () => {
       console.log(trendingMediaList);
       setMediaList(trendingMediaList);
     });
-  }, []);
+  }, [activeTabId, url]);
 
   return (
     <div className="px-20 py-40 bg-black text-white font-bold">
       <div className="slider-bar flex items-center content-center h-35">
         <p className="text-3xl">Trending</p>
         <ul className="flex  ml-15 rounded border-2 border-white">
-          <li className="flex items-center content-center p-3 text-lg bg-white text-black">
-            <a href="#!">All</a>
-          </li>
-          <li className="flex items-center content-center p-3 text-lg">
-            <a href="#!">Movies</a>
-          </li>
-          <li className="flex items-center content-center p-3 text-lg">
-            <a href="#!">TV Shows</a>
-          </li>
+          {TAB.map((tab) => (
+            <li 
+              key={tab.id} 
+              className={`flex items-center content-center p-3 text-lg ${tab.id === activeTabId ? "bg-white text-black" : ""}`} 
+              onClick={() => {
+                setActiveTabId(tab.id);
+              }}>
+              <a href="#!">{tab.name}</a>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
-        {
-        mediaList.map((media) => (
-          <MovieCard 
-            key={media.id} 
-            title={media.title || media.name} 
+        {mediaList.map((media) => (
+          <MovieCard
+            key={media.id}
+            title={media.title || media.name}
             releaseDate={media.release_date || media.first_air_date}
             backdropPath={media.backdrop_path}
             point={media.vote_average}
