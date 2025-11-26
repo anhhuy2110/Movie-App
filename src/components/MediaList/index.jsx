@@ -1,29 +1,15 @@
 import React, { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 
-const TAB = [
-  {
-    id: "all",
-    name: "All",
-  },
-  {
-    id: "movie",
-    name: "Movie",
-  },
-  {
-    id: "tv",
-    name: "TV",
-  },
-];
-
-const MediaList = () => {
+const MediaList = ({ title, tabs }) => {
   const [mediaList, setMediaList] = useState([]);
-  const [activeTabId, setActiveTabId] = useState("all");
-
-  const url = `https://api.themoviedb.org/3/trending/${activeTabId}/day?language=en-US`;
+  const [activeTabId, setActiveTabId] = useState(tabs[0]?.id);
 
   useEffect(() => {
-    fetch(url, {
+
+    const url = tabs?.find((tab) => tab.id === activeTabId)?.url;
+    if(url) {
+      fetch(url, {
       method: "GET",
       headers: {
         accept: "application/json",
@@ -36,21 +22,24 @@ const MediaList = () => {
       console.log(trendingMediaList);
       setMediaList(trendingMediaList);
     });
-  }, [activeTabId, url]);
+    }
+  }, [activeTabId, tabs]);
 
   return (
-    <div className="px-20 py-40 bg-black text-white font-bold">
+    <div className="px-20 py-20 bg-black text-white font-bold">
       <div className="slider-bar flex items-center content-center h-35">
-        <p className="text-3xl">Trending</p>
+        <p className="text-3xl">{title}</p>
         <ul className="flex  ml-15 rounded border-2 border-white">
-          {TAB.map((tab) => (
-            <li 
-              key={tab.id} 
-              className={`flex items-center content-center p-3 text-lg ${tab.id === activeTabId ? "bg-white text-black" : ""}`} 
+          {tabs.map((tab) => (
+            <li
+              key={tab.id}
+              className={`flex items-center content-center p-3 text-lg ${tab.id === activeTabId ? "bg-white text-black" : ""}`}
               onClick={() => {
                 setActiveTabId(tab.id);
-              }}>
-              <a href="#!">{tab.name}</a>
+                console.log(tab); 
+              }}
+            >
+            <a href="#!">{tab.name}</a>
             </li>
           ))}
         </ul>
@@ -63,7 +52,7 @@ const MediaList = () => {
             releaseDate={media.release_date || media.first_air_date}
             backdropPath={media.backdrop_path}
             point={media.vote_average}
-            type={media.media_type}
+            type={media.media_type || activeTabId}
           />
         ))}
       </div>
