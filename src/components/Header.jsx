@@ -7,7 +7,7 @@ const Header = () => {
       <header className="flex justify-between items-center px-10 h-[10vh] bg-gray-900 text-cyan-50">
         <div className="flex items-center content-center gap-10 lg:gap-15">
           <img
-            src="./public/img/Netflix_Logo.png"
+            src="/public/img/Netflix_Logo.png"
             alt="logo-netflix"
             className="w-30"
           />

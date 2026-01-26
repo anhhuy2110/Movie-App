@@ -1,10 +1,22 @@
 import React from "react";
 import CircularProgressBar from "./CircularProgressBar";
+import { useNavigate } from "react-router-dom";
 
-const MovieCard = ({title,releaseDate,backdropPath,point,type}) => {
+
+const MovieCard = ({id,title,releaseDate,backdropPath,point,type}) => {
+
+  // const navigate = useNavigate();
+
+  const showDetails = () => {
+    console.log(`${id}`);
+    // navigate(`/movie/${id}`);
+
+  }
 
   return (
-    <div className="border border-slate-800 rounded-lg">
+    <div className="border border-slate-800 rounded-lg"
+      onClick={showDetails}
+    >
       {
         type === "tv" && (
           <p className="absolute bg-black text-white p-1 text-sm rounded shadow-md">TV Show</p>
